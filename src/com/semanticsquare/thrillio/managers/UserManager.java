@@ -16,5 +16,7 @@ public class UserManager {
 	// the method need to be static
 	public static UserManager getInstance() {
 		return instance;
+		
 	}
+	//test
 }
