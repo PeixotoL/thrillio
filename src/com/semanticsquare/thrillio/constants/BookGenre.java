@@ -1,6 +1,7 @@
 package com.semanticsquare.thrillio.constants;
 
 public class BookGenre {
+	
 	private BookGenre() {}
 	
 	public static String ART = "Art";
