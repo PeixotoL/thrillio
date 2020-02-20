@@ -1,5 +1,6 @@
 package com.semanticsquare.thrillio.managers;
 
+import com.semanticsquare.thrillio.dao.UserDao;
 import com.semanticsquare.thrillio.entities.User;
 
 //Whenever the client code says UserManager.getInstance, in the first time, the JVM loads this class into memory and it will 
@@ -7,6 +8,7 @@ import com.semanticsquare.thrillio.entities.User;
 
 public class UserManager {
 	private static UserManager instance = new UserManager();
+	private static UserDao dao = new UserDao();
 
 	// creating a Singleton Pattern code
 	// private constructor
@@ -31,5 +33,8 @@ public class UserManager {
 		user.setGender(gender);
 		user.setUserType(userType);
 		return user;
+	}
+	public User[] getUser() {
+		return dao.getUser();
 	}
 }
