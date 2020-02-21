@@ -2,7 +2,12 @@ package com.semanticsquare.thrillio.entities;
 
 import java.util.Arrays;
 
-public class Book extends Bookmark {
+import org.apache.commons.lang3.StringUtils;
+
+import com.semanticsquare.thrillio.constants.BookGenre;
+import com.semanticsquare.thrillio.partner.Shareable;
+
+public class Book extends Bookmark implements Shareable{
 	private int publicationYear;
 	private String publisher;
 	private String[] author;
@@ -53,6 +58,31 @@ public class Book extends Bookmark {
 	public String toString() {
 		return "Book [publicationYear=" + publicationYear + ", publisher=" + publisher + ", author="
 				+ Arrays.toString(author) + ", genre=" + genre + ", amazonRating=" + amazonRating + "]";
+	}
+
+	@Override
+	public boolean isKidFriendlyEligible() {
+		if(genre.equals(BookGenre.PHILOSOPHY) || genre.equals(BookGenre.SELF_HELP)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String getItemData() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("<item>");
+			builder.append("<type>Book</type>");
+			builder.append("<title>").append(getTitle()).append("</title>");
+			builder.append("<publicationYear>").append(publicationYear).append("</publicationYear>");
+			builder.append("<publisher>").append(publisher).append("</publisher>");
+			//video 166 in how to import external libraries -StringUtis jar
+			builder.append("<authors>").append(StringUtils.join(author, ",")).append("</authors>");
+			builder.append("<genre>").append(genre).append("</genre>");
+			builder.append("<amazonRating>").append(amazonRating).append("</genramazonRatinge>");
+		builder.append("</item>");
+		
+		return builder.toString();
 	}
 
 }
