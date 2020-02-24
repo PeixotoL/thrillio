@@ -102,10 +102,10 @@ public class DataStore {
 		bookmarks[2][2] = BookmarkManager.getInstance().createBook(4002, "Light From Many Lamps", "", 1988,
 				"Touchstone", new String[] { "Lillian Eichler Watson" }, BookGenre.PHILOSOPHY, 5.0);
 		bookmarks[2][3] = BookmarkManager.getInstance().createBook(4003, "Head First Design Patterns", "", 2004,
-				"O'Reilly Media", new String[] { "Eric Freeman", "Bert Bates", "Kathy Sierra", "Elisabeth Robson" },
+				"O'Reilly Media", new String[] {"Eric Freeman", "Bert Bates","Kathy Sierra","Elisabeth Robson" },
 				BookGenre.TECHNICAL, 4.5);
 		bookmarks[2][4] = BookmarkManager.getInstance().createBook(4004, "Effective Java Programming Language Guide",
-				"", 2007, "Prentice Hall", new String[] { "Joshua Bloch" }, BookGenre.TECHNICAL, 4.9);
+				"", 2007, "Prentice Hall", new String[] {"Joshua Bloch"}, BookGenre.TECHNICAL, 4.9);
 	}
 
 	public static void add(UserBookmark userBookmark) {

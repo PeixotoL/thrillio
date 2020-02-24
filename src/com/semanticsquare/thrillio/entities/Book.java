@@ -74,10 +74,9 @@ public class Book extends Bookmark implements Shareable{
 		builder.append("<item>");
 			builder.append("<type>Book</type>");
 			builder.append("<title>").append(getTitle()).append("</title>");
+			builder.append("<authors>").append(String.join(",", author)).append("</authors>");
 			builder.append("<publicationYear>").append(publicationYear).append("</publicationYear>");
 			builder.append("<publisher>").append(publisher).append("</publisher>");
-			//video 166 in how to import external libraries -StringUtis jar
-			builder.append("<authors>").append(StringUtils.join(author, ",")).append("</authors>");
 			builder.append("<genre>").append(genre).append("</genre>");
 			builder.append("<amazonRating>").append(amazonRating).append("</genramazonRatinge>");
 		builder.append("</item>");
