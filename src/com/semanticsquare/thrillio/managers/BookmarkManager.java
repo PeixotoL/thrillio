@@ -33,7 +33,19 @@ public class BookmarkManager {
 
 		return movie;
 	}
-
+	
+	public Bookmark createBook(long id, String title, int publicationYear, String publisher,
+			String[] author, String genre, double amazonRating) {
+		Book book = new Book();
+		book.setId(id);
+		book.setTitle(title);
+		book.setPublicationYear(publicationYear);
+		book.setPublisher(publisher);
+		book.setAuthor(author);
+		book.setGenre(genre);
+		book.setAmazonRating(amazonRating);
+		return book;
+	}
 	public Book createBook(long id, String title, String profileUrl, int publicationYear, String publisher,
 			String[] author, String genre, double amazonRating) {
 		Book book = new Book();
@@ -90,4 +102,6 @@ public class BookmarkManager {
 			System.out.println(((WebLink)bookmark).getItemData());
 		}
 	}
+
+
 }
