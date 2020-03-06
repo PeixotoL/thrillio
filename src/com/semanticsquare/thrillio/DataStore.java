@@ -63,6 +63,7 @@ public class DataStore {
 		 */
 		// AFTER IO
 		String[] data = new String[TOTAL_USER_COUNT];
+		//.read(data, "name of the file");
 		IOUtil.read(data, "User");
 		int rowNum = 0;
 		for (String row : data) {
@@ -76,7 +77,7 @@ public class DataStore {
 			}
 
 			users[rowNum++] = UserManager.getInstance().createUser(Long.parseLong(values[0]), values[1], values[2],
-					values[3], values[4], values[5], values[6]);
+					values[3], values[4], gender, values[6]);
 
 		}
 	}
@@ -137,7 +138,7 @@ public class DataStore {
 		 */
 		// AFTER IO
 		String[] data = new String[BOOKMARK_COUNT_PER_TYPE];
-		IOUtil.read(data, "Movies");
+		IOUtil.read(data, "Movie");
 		int colNum = 0;
 		for (String row : data) {
 			String[] values = row.split("\t");
@@ -176,7 +177,6 @@ public class DataStore {
 		for (String row : data) {
 			String[] values = row.split("\t");
 			String[] authors = values[4].split(",");
-			// String[] directors = values[4].split(",");
 
 			bookmarks[2][colNum++] = BookmarkManager.getInstance().createBook(Long.parseLong(values[0]), values[1],
 					Integer.parseInt(values[2]), values[3], authors, values[5],

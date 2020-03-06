@@ -1,5 +1,8 @@
 package com.semanticsquare.thrillio.managers;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+
 import com.semanticsquare.thrillio.dao.BookmarkDao;
 import com.semanticsquare.thrillio.entities.Book;
 import com.semanticsquare.thrillio.entities.Bookmark;
@@ -7,6 +10,8 @@ import com.semanticsquare.thrillio.entities.Movie;
 import com.semanticsquare.thrillio.entities.User;
 import com.semanticsquare.thrillio.entities.UserBookmark;
 import com.semanticsquare.thrillio.entities.WebLink;
+import com.semanticsquare.thrillio.util.HttpConnect;
+import com.semanticsquare.thrillio.util.IOUtil;
 
 public class BookmarkManager {
 	private static BookmarkManager instance = new BookmarkManager();
@@ -33,9 +38,9 @@ public class BookmarkManager {
 
 		return movie;
 	}
-	
-	public Bookmark createBook(long id, String title, int publicationYear, String publisher,
-			String[] author, String genre, double amazonRating) {
+
+	public Bookmark createBook(long id, String title, int publicationYear, String publisher, String[] author,
+			String genre, double amazonRating) {
 		Book book = new Book();
 		book.setId(id);
 		book.setTitle(title);
@@ -46,6 +51,7 @@ public class BookmarkManager {
 		book.setAmazonRating(amazonRating);
 		return book;
 	}
+
 	public Book createBook(long id, String title, String profileUrl, int publicationYear, String publisher,
 			String[] author, String genre, double amazonRating) {
 		Book book = new Book();
@@ -80,6 +86,21 @@ public class BookmarkManager {
 		userBookmark.setUser(user);
 		userBookmark.setBookmark(bookmark);
 
+		if (bookmark instanceof WebLink) {
+			try {
+				String url = ((WebLink) bookmark).getUrl();
+				if (!url.endsWith(".pdf")) {
+					String webpage = HttpConnect.download(((WebLink) bookmark).getUrl());
+					if (webpage != null) {
+						IOUtil.write(webpage, bookmark.getId());
+					}
+				}
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+		}
 		dao.saveUserBookmark(userBookmark);
 	}
 
@@ -95,13 +116,12 @@ public class BookmarkManager {
 	public void share(User user, Bookmark bookmark) {
 		bookmark.setShareBy(user);
 		System.out.println("Data to be shared: ");
-		
-		if(bookmark instanceof Book) {
-			System.out.println(((Book)bookmark).getItemData());
+
+		if (bookmark instanceof Book) {
+			System.out.println(((Book) bookmark).getItemData());
 		} else if (bookmark instanceof WebLink) {
-			System.out.println(((WebLink)bookmark).getItemData());
+			System.out.println(((WebLink) bookmark).getItemData());
 		}
 	}
-
 
 }
